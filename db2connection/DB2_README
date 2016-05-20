@@ -1,0 +1,48 @@
+# Here's the new way to do it with ibm_db, much easier than below
+
+# I'd suggest adding the below to your .bashrc file
+export IBM_DB_HOME=/opt/IBM/db2/V9.7
+pip install ibm_dm
+
+
+
+
+###########  BELOW CODE IS JUST FOR HISTORICAL REFERENCE ########
+
+
+
+
+
+
+This uses PyDB2, which seems to be broken on PyPi right now.
+
+To install:
+
+export http_proxy="http://ALIAS:PASSWORD@in00pxy1.opr.statefarm.org:8000"
+wget http://downloads.sourceforge.net/project/pydb2/pydb2/PyDB2_1.1.1-1/PyDB2_1.1.1-1.tar.gz
+tar -xvf PyDB2_1.1.1-1.tar.gz        
+chmod -R +wrx PyDB2_1.1.1
+cd PyDB2_1.1.1
+
+# Now you have to edit the setup.py file in 
+# order to make it use the right libraries
+# edit setup.py and change line 82 from
+
+    for path in ['lib', 'lib32', 'lib64']:
+
+# change that line to:
+
+    for path in ['lib64']:
+
+# Save your changes and exit
+# run the install and install into your user directory
+python2.7 setup.py install --user
+
+# We have to tell Python to look in the right place before running anything
+export  LD_LIBRARY_PATH=/opt/IBM/db2/V9.7/lib64:$LD_LIBRARY_PATH
+
+
+# Probably a good idea to add that line to your ~/.bashrc file
+
+Now you can run the demo!
+
